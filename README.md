@@ -2,6 +2,14 @@
 
 This library makes it easy to display a Speech Bubble above an element!
 
+You may use this in your HTML using GitHub Pages Hosting.
+```html
+<script type="text/javascript" src="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.js"></script>
+<link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.css" />
+```
+
+There is a demo in the demo folder as well as a fiddle here: https://jsfiddle.net/35nqtpL7/
+
 ## Usage
 
 #### Create a Speech Bubble

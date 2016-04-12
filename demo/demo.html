@@ -5,6 +5,30 @@
 	<title>SpeechBubble.js - Demo</title>
 	<script type="text/javascript" src="../SpeechBubble.js"></script>
 	<link rel="stylesheet" href="../SpeechBubble.css" />
+
+
+	<style type="text/css">
+		.bigfont {
+			font-size: 20px;
+		}
+
+		.yellowbackground {
+			background-color: yellow;
+		}
+		/* NOTE: To set the background color set border-color on :after. */
+		.yellowbackground:after {
+			border-color: yellow transparent;
+		}
+
+		.greenborder {
+			border: 5px solid green;
+		}
+		/* NOTE: To set the border color set border-color on :before. */
+		.greenborder:before {
+			border-color: green transparent;
+		}
+	</style>
+
 </head>
 <body>
 <p>
@@ -18,7 +42,7 @@
 	Mauris in felis nibh. Vestibulum vitae nunc ligula. Praesent at urna at libero bibendum semper. Vestibulum viverra eleifend leo id convallis. Ut venenatis sapien vitae turpis cursus, quis tempor nulla imperdiet. Sed lacinia velit id iaculis tristique. Fusce elit felis, sodales consequat eros in, malesuada vulputate sapien. Praesent vitae congue nunc, ac volutpat ligula. <span id="BubbleFrom">Quisque erat diam,</span> fringilla vitae commodo nec, tincidunt quis est. Donec ornare consectetur posuere. In lacinia leo sit amet sapien maximus dapibus. Donec in est condimentum, dictum metus in, euismod ex.
 </p>
 <script type="text/javascript">
-	SpeechBubble(document.getElementById('BubbleFrom'), '<b>This is some bubble text</b>');
+	SpeechBubble(document.getElementById('BubbleFrom'), '<b>This is some bubble text</b>', 'bigfont yellowbackground greenborder');
 </script>
 </body>
 </html>
