@@ -60,7 +60,10 @@ window.SpeechBubble = function(element, content, additionalcssclass){
 		var speechX;
 		var speechY;
 
-		if (elmXY.top + element.clientHeight + SpeechDiv.clientHeight + 23 > (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)) {
+		var elmWidth = (element.clientWidth || element.offsetWidth);
+		var elmHeight = (element.clientHeight || element.offsetHeight);
+
+		if (elmXY.top + elmHeight + SpeechDiv.clientHeight + 23 > (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)) {
 			var appliedClasses = SpeechDiv.className.split(' ');
 			for ( var i = 0; i < appliedClasses.length; i++ ) {
 				if (appliedClasses[i] == 'speech-bubble-top') {
@@ -79,7 +82,7 @@ window.SpeechBubble = function(element, content, additionalcssclass){
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top + element.clientHeight + 18;
+			speechY = elmXY.top + elmHeight + 18;
 		}
 
 		if (SpeechDiv.clientWidth < element.clientWidth)
@@ -93,17 +96,17 @@ window.SpeechBubble = function(element, content, additionalcssclass){
 			'  top: ' + speechY + 'px;' +
 			'}' +
 			'.speech-bubble-main:before {';
-		if (SpeechDiv.clientWidth < element.clientWidth)
+		if (SpeechDiv.clientWidth < elmWidth)
 			SpeechStyle.innerHTML += '  left: ' + ((SpeechDiv.clientWidth - 20) / 2 - 7) + 'px';
 		else
-			SpeechStyle.innerHTML += '  left: ' + (element.clientWidth / 2 - 27) + 'px;';
+			SpeechStyle.innerHTML += '  left: ' + (elmWidth / 2 - 27) + 'px;';
 		SpeechStyle.innerHTML +=
 			'}' +
 			'.speech-bubble-main:after {';
-		if (SpeechDiv.clientWidth < element.clientWidth)
+		if (SpeechDiv.clientWidth < elmWidth)
 			SpeechStyle.innerHTML += '  left: ' + ((SpeechDiv.clientWidth - 20) / 2) + 'px';
 		else
-			SpeechStyle.innerHTML += '  left: ' + (element.clientWidth / 2 - 20) + 'px;';
+			SpeechStyle.innerHTML += '  left: ' + (elmWidth / 2 - 20) + 'px;';
 		SpeechStyle.innerHTML += '}';
 	}
 
