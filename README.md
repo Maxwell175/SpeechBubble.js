@@ -8,7 +8,7 @@ You may use this in your HTML using GitHub Pages Hosting.
 <link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.css" />
 ```
 
-There is a demo in the demo folder as well as a fiddle here: https://jsfiddle.net/35nqtpL7/
+There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.net/35nqtpL7/
 
 ## Usage
 
