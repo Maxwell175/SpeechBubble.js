@@ -21,10 +21,10 @@
  * Adds a speech bubble above or below the specified element.
  * @param {HTMLElement} element - Element that the
  * @param {string} content - What the bubble will contain (html is ok).
- * @param {string} [additionalcssclass] The CSS class to add to the element.
+ * @param {string} [additionalcssclasses] The CSS class to add to the element.
  * @returns {HTMLElement} The Speech Bubble element.
  */
-window.SpeechBubble = function(element, content, additionalcssclass){
+window.SpeechBubble = function(element, content, additionalcssclasses){
 	// http://stackoverflow.com/a/34014786/1610754 and http://stackoverflow.com/a/442474/1610754
 	function getOffset(elm) {
 		// Find the offset of elm from the body or html element
@@ -41,8 +41,8 @@ window.SpeechBubble = function(element, content, additionalcssclass){
 
 
 	var SpeechDiv = document.createElement('div');
-	if (additionalcssclass) {
-		SpeechDiv.className = 'speech-bubble-main speech-bubble-top ' + additionalcssclass;
+	if (additionalcssclasses) {
+		SpeechDiv.className = 'speech-bubble-main speech-bubble-top ' + additionalcssclasses;
 	} else {
 		SpeechDiv.className = 'speech-bubble-main speech-bubble-top';
 	}
