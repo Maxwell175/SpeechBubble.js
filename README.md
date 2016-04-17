@@ -8,7 +8,7 @@ You may use this in your HTML using GitHub Pages Hosting.
 <link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.css" />
 ```
 
-There is a demo in the demo folder as well as a fiddle here: https://jsfiddle.net/35nqtpL7/
+There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.net/35nqtpL7/
 
 ## Usage
 
@@ -38,3 +38,10 @@ OpenSpeechBubbles.forEach(function(bubble) { bubble.removeBubble(); });
 
 * **For IE 8 support, please include the `addEventListener` polyfill.**  
    https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Compatibility
+
+## Tested on
+* **Chrome 49+**
+* **Safari 9.1**
+* **Firefox 45+**
+
+It would be very helpful if you would open a `help wanted` issue to confirm that this works for earlier browsers.
