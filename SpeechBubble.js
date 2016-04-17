@@ -48,6 +48,11 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 		SpeechDiv.className = 'speech-bubble-main speech-bubble-top';
 	}
 	SpeechDiv.innerHTML = content;
+	var SpeechID;
+	do {
+		SpeechID='bubble-' + new Date().getTime();
+	} while (document.getElementById(SpeechID));
+	SpeechDiv.id = SpeechID;
 	SpeechDiv.setAttribute("style", "");
 	(appendToElement || document.getElementsByTagName('body')[0]).appendChild(SpeechDiv);
 
@@ -92,18 +97,18 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 			speechX = elmXY.left;
 
 		SpeechStyle.innerHTML =
-			'.speech-bubble-main {' +
+			'#' + SpeechDiv.id + ' {' +
 			'  left: ' + speechX + 'px;' +
 			'  top: ' + speechY + 'px;' +
 			'}' +
-			'.speech-bubble-main:before {';
+			'#' + SpeechDiv.id + ':before {';
 		if (SpeechDiv.clientWidth < elmWidth)
 			SpeechStyle.innerHTML += '  left: ' + ((SpeechDiv.clientWidth - 20) / 2 - 7) + 'px';
 		else
 			SpeechStyle.innerHTML += '  left: ' + (elmWidth / 2 - 27) + 'px;';
 		SpeechStyle.innerHTML +=
 			'}' +
-			'.speech-bubble-main:after {';
+			'#' + SpeechDiv.id + ':after {';
 		if (SpeechDiv.clientWidth < elmWidth)
 			SpeechStyle.innerHTML += '  left: ' + ((SpeechDiv.clientWidth - 20) / 2) + 'px';
 		else

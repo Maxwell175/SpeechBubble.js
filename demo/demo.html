@@ -32,17 +32,30 @@
 </head>
 <body>
 <p>
-	<b>Resize me!</b>
+	<span id="BubbleFrom1"><b>Resize me!</b></span>
 </p>
 <p>
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in ligula non lorem accumsan interdum. Suspendisse fermentum id tellus quis vehicula. Nulla at mattis arcu. Pellentesque eu maximus tortor. Donec scelerisque ligula vel purus cursus, non porttitor lectus scelerisque. Morbi magna ligula, suscipit ut tincidunt quis, sodales eu ligula. Pellentesque quis eros et nibh pretium elementum. Quisque tristique urna eget sollicitudin fringilla. Ut mauris arcu, sagittis a sem at, dignissim ullamcorper neque. Morbi at sodales urna. In condimentum efficitur augue a lobortis. Proin condimentum in metus sit amet volutpat. Vestibulum faucibus lacus ac lectus venenatis, non ullamcorper tellus sollicitudin.
 </p><p>
 	Aliquam sollicitudin metus tortor, sed finibus massa rhoncus sagittis. Nulla ut rutrum metus. Sed ac tempor lorem. Sed congue tristique sem, ut laoreet quam vestibulum eu. Maecenas tristique mauris lacus, nec congue est consequat quis. Integer lacinia fringilla tortor. Vestibulum pulvinar cursus eros, sed semper lorem luctus ut. Nullam faucibus neque sem, et egestas purus mollis at. Nulla lobortis finibus eleifend. Fusce laoreet tristique diam quis porta. Integer pretium mattis leo, at iaculis elit suscipit id. Cras id tincidunt enim. Curabitur maximus eget lorem a euismod.
 </p><p>
-	Mauris in felis nibh. Vestibulum vitae nunc ligula. Praesent at urna at libero bibendum semper. Vestibulum viverra eleifend leo id convallis. Ut venenatis sapien vitae turpis cursus, quis tempor nulla imperdiet. Sed lacinia velit id iaculis tristique. Fusce elit felis, sodales consequat eros in, malesuada vulputate sapien. Praesent vitae congue nunc, ac volutpat ligula. <span id="BubbleFrom">Quisque erat diam,</span> fringilla vitae commodo nec, tincidunt quis est. Donec ornare consectetur posuere. In lacinia leo sit amet sapien maximus dapibus. Donec in est condimentum, dictum metus in, euismod ex.
+	Mauris in felis nibh. Vestibulum vitae nunc ligula. Praesent at urna at libero bibendum semper. Vestibulum viverra eleifend leo id convallis. Ut venenatis sapien vitae turpis cursus, quis tempor nulla imperdiet. Sed lacinia velit id iaculis tristique. Fusce elit felis, sodales consequat eros in, malesuada vulputate sapien. Praesent vitae congue nunc, ac volutpat ligula. <span id="BubbleFrom2">Quisque erat diam,</span> fringilla vitae commodo nec, tincidunt quis est. Donec ornare consectetur posuere. In lacinia leo sit amet sapien maximus dapibus. Donec in est condimentum, dictum metus in, euismod ex.
 </p>
+<div id="AddToDiv"></div>
 <script type="text/javascript">
-	SpeechBubble(document.getElementById('BubbleFrom'), '<b>This is some bubble text</b>', 'bigfont yellowbackground greenborder');
+	SpeechBubble(
+			document.getElementById('BubbleFrom1'),
+			'<b>This is some bubble text</b>',
+			'bigfont yellowbackground greenborder',
+			document.getElementById('AddToDiv')
+	);
+
+	SpeechBubble(
+			document.getElementById('BubbleFrom2'),
+			'<b>This is a random image: </b><img src="http://i.imgur.com/vkMfQug.gif" />',
+			'bigfont yellowbackground greenborder',
+			document.getElementById('AddToDiv')
+	);
 </script>
 </body>
 </html>
