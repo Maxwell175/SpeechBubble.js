@@ -21,10 +21,11 @@
  * Adds a speech bubble above or below the specified element.
  * @param {HTMLElement} element - Element that the
  * @param {string} content - What the bubble will contain (html is ok).
- * @param {string} [additionalcssclasses] The CSS class to add to the element.
+ * @param {string} [additionalCSSClasses] The CSS class to add to the element.
+ * @param {HTMLElement} [appendToElement=body] The element to which the SpeechBubble will actually be appended to. By default this is the `body` element.
  * @returns {HTMLElement} The Speech Bubble element.
  */
-window.SpeechBubble = function(element, content, additionalcssclasses){
+window.SpeechBubble = function(element, content, additionalCSSClasses, appendToElement){
 	// http://stackoverflow.com/a/34014786/1610754 and http://stackoverflow.com/a/442474/1610754
 	function getOffset(elm) {
 		// Find the offset of elm from the body or html element
@@ -41,14 +42,14 @@ window.SpeechBubble = function(element, content, additionalcssclasses){
 
 
 	var SpeechDiv = document.createElement('div');
-	if (additionalcssclasses) {
-		SpeechDiv.className = 'speech-bubble-main speech-bubble-top ' + additionalcssclasses;
+	if (additionalCSSClasses) {
+		SpeechDiv.className = 'speech-bubble-main speech-bubble-top ' + additionalCSSClasses;
 	} else {
 		SpeechDiv.className = 'speech-bubble-main speech-bubble-top';
 	}
 	SpeechDiv.innerHTML = content;
 	SpeechDiv.setAttribute("style", "");
-	document.getElementsByTagName('body')[0].appendChild(SpeechDiv);
+	(appendToElement || document.getElementsByTagName('body')[0]).appendChild(SpeechDiv);
 
 	var SpeechStyle = document.createElement('style');
 	document.getElementsByTagName('body')[0].appendChild(SpeechStyle);
