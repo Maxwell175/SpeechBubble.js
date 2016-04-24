@@ -78,7 +78,7 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top - SpeechDiv.clientHeight - 28;
+			speechY = elmXY.top - SpeechDiv.clientHeight - 23;
 		} else {
 			var appliedClasses = SpeechDiv.className.split(' ');
 			for ( var i = 0; i < appliedClasses.length; i++ ) {
@@ -88,7 +88,7 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top + elmHeight + 18;
+			speechY = elmXY.top + elmHeight + 12;
 		}
 
 		if (SpeechDiv.clientWidth < element.clientWidth)
