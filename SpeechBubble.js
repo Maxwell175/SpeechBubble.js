@@ -41,13 +41,13 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 	}
 
 	var element;
-	if (jQuery && targetElement instanceof jQuery) {
+	if (typeof jQuery !== "undefined" && targetElement instanceof jQuery) {
 		element = targetElement[0];
 	} else {
 		element = targetElement;
 	}
 	var appendElm;
-	if (jQuery && appendToElement instanceof jQuery) {
+	if (typeof jQuery !== "undefined" && appendToElement instanceof jQuery) {
 		appendElm = appendToElement[0];
 	} else {
 		appendElm = appendToElement;
