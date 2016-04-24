@@ -8,7 +8,7 @@ You may use this in your HTML using GitHub Pages Hosting.
 <link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.css" />
 ```
 
-There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.net/35nqtpL7/
+There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.net/t6Lqwxq2/
 
 ## Usage
 
@@ -32,9 +32,15 @@ OpenSpeechBubbles.forEach(function(bubble) { bubble.removeBubble(); });
 ## Dependencies
 ##### None. There are no dependencies.
 
+## Contributions
+##### To contribute to this repository, open an issue about the problem you would like to fix (if there isn't one already) and leave a message saying that you are working on it. When you finish your fix(es) on your fork, create a pull request.
+
 ## Things to note
 * **The element you specify should have a fixed width.**  
    Otherwise, the bubble will end up pointing at the middle of the page.
+
+* **If the specified element is a `<span>` that contains a phrase in a paragraph and the phrase wraps it appears that the bubble points somewhere to the side of the text. (Resize the jsfiddle)**   
+   Solutions are welcome! See Contributions section.
 
 * **For IE 8 support, please include the `addEventListener` polyfill.**  
    https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Compatibility
