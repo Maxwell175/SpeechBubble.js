@@ -19,13 +19,13 @@
 // If you would like IE 8 support, include the polyfill here: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Compatibility
 /**
  * Adds a speech bubble above or below the specified element.
- * @param {HTMLElement} element - Element that the
+ * @param {HTMLElement} targetElement - Element that the
  * @param {string} content - What the bubble will contain (html is ok).
  * @param {string} [additionalCSSClasses] The CSS class to add to the element.
  * @param {HTMLElement} [appendToElement=body] The element to which the SpeechBubble will actually be appended to. By default this is the `body` element.
  * @returns {HTMLElement} The Speech Bubble element.
  */
-window.SpeechBubble = function(element, content, additionalCSSClasses, appendToElement){
+window.SpeechBubble = function(targetElement, content, additionalCSSClasses, appendToElement){
 	// http://stackoverflow.com/a/34014786/1610754 and http://stackoverflow.com/a/442474/1610754
 	function getOffset(elm) {
 		// Find the offset of elm from the body or html element
@@ -40,6 +40,18 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 		return { top: _y, left: _x };
 	}
 
+	var element;
+	if (typeof jQuery !== "undefined" && targetElement instanceof jQuery) {
+		element = targetElement[0];
+	} else {
+		element = targetElement;
+	}
+	var appendElm;
+	if (typeof jQuery !== "undefined" && appendToElement instanceof jQuery) {
+		appendElm = appendToElement[0];
+	} else {
+		appendElm = appendToElement;
+	}
 
 	var SpeechDiv = document.createElement('div');
 	if (additionalCSSClasses) {
@@ -54,7 +66,7 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 	} while (document.getElementById(SpeechID));
 	SpeechDiv.id = SpeechID;
 	SpeechDiv.setAttribute("style", "");
-	(appendToElement || document.getElementsByTagName('body')[0]).appendChild(SpeechDiv);
+	(appendElm || document.getElementsByTagName('body')[0]).appendChild(SpeechDiv);
 
 	var SpeechStyle = document.createElement('style');
 	document.getElementsByTagName('body')[0].appendChild(SpeechStyle);
@@ -78,7 +90,7 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top - SpeechDiv.clientHeight - 28;
+			speechY = elmXY.top - SpeechDiv.clientHeight - 23;
 		} else {
 			var appliedClasses = SpeechDiv.className.split(' ');
 			for ( var i = 0; i < appliedClasses.length; i++ ) {
@@ -88,7 +100,7 @@ window.SpeechBubble = function(element, content, additionalCSSClasses, appendToE
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top + elmHeight + 18;
+			speechY = elmXY.top + elmHeight + 12;
 		}
 
 		if (SpeechDiv.clientWidth < element.clientWidth)
