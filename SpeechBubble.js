@@ -78,8 +78,29 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 		var speechX;
 		var speechY;
 
-		var elmWidth = (element.clientWidth || element.offsetWidth);
-		var elmHeight = (element.clientHeight || element.offsetHeight);
+		var elmWidth = (element.offsetWidth && element.offsetWidth > element.clientWidth) ? element.offsetWidth : element.clientWidth;
+		var elmHeight = (element.offsetHeight && element.offsetHeight > element.clientHeight) ? element.offsetHeight : element.clientHeight;
+
+
+		var targetPointerCoefficient = 0;
+		if (SpeechDiv.clientWidth < element.clientWidth)
+			speechX = elmXY.left + (element.clientWidth - SpeechDiv.clientWidth) / 2;
+		else if (elmXY.left + SpeechDiv.clientWidth >= document.documentElement.clientWidth) {
+			// If the size of the SpeechDiv is greater than the amount of space there is from
+			// the beginning of the element to the edge of the page, the SpeechDiv must be moved closer to the left.
+			speechX = document.documentElement.clientWidth - SpeechDiv.clientWidth;
+			// If the SpeechDiv is larger that the viewport, let the SpeechBubble become taller.
+			if (speechX < 0) {
+				speechX = 0;
+			}
+
+			// Now, calculate how much the pointer should be moved to compensate for the new position of the SpeechDiv.
+			targetPointerCoefficient = elmXY.left - speechX;
+		} else
+			speechX = elmXY.left;
+
+		// Temporarily set the X coordinate of the SpeechDiv manually to correctly calculate the Y coordinate.
+		SpeechDiv.style.left = speechX;
 
 		if (elmXY.top + elmHeight + SpeechDiv.clientHeight + 23 > (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)) {
 			var appliedClasses = SpeechDiv.className.split(' ');
@@ -100,31 +121,30 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top + elmHeight + 12;
+			speechY = elmXY.top + elmHeight + 2;
 		}
 
-		if (SpeechDiv.clientWidth < element.clientWidth)
-			speechX = elmXY.left + (element.clientWidth - SpeechDiv.clientWidth) / 2;
-		else
-			speechX = elmXY.left;
+		// Unset inline style.
+		SpeechDiv.style.left = "";
+
 
 		SpeechStyle.innerHTML =
-			'#' + SpeechDiv.id + ' {' +
-			'  left: ' + speechX + 'px;' +
-			'  top: ' + speechY + 'px;' +
-			'}' +
-			'#' + SpeechDiv.id + ':before {';
+				'#' + SpeechDiv.id + ' {' +
+				'  left: ' + speechX + 'px;' +
+				'  top: ' + speechY + 'px;' +
+				'}' +
+				'#' + SpeechDiv.id + ':before {';
 		if (SpeechDiv.clientWidth < elmWidth)
-			SpeechStyle.innerHTML += '  left: ' + ((SpeechDiv.clientWidth - 20) / 2 - 7) + 'px';
+			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + (SpeechDiv.clientWidth - 20) / 2 - 7) + 'px';
 		else
-			SpeechStyle.innerHTML += '  left: ' + (elmWidth / 2 - 27) + 'px;';
+			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + elmWidth / 2 - 27) + 'px;';
 		SpeechStyle.innerHTML +=
-			'}' +
-			'#' + SpeechDiv.id + ':after {';
+				'}' +
+				'#' + SpeechDiv.id + ':after {';
 		if (SpeechDiv.clientWidth < elmWidth)
-			SpeechStyle.innerHTML += '  left: ' + ((SpeechDiv.clientWidth - 20) / 2) + 'px';
+			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + (SpeechDiv.clientWidth - 20) / 2) + 'px';
 		else
-			SpeechStyle.innerHTML += '  left: ' + (elmWidth / 2 - 20) + 'px;';
+			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + elmWidth / 2 - 20) + 'px;';
 		SpeechStyle.innerHTML += '}';
 	}
 
