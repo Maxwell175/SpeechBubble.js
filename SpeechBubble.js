@@ -1,4 +1,6 @@
 /*
+ * SpeechBubble.js
+ * 
  * Copyright (c) 2016 Maxwell Dreytser
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
