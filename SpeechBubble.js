@@ -123,6 +123,7 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 
 			speechY = elmXY.top + elmHeight + 2;
 		}
+		if (speechY < 0) speechY = 0;
 
 		// Unset inline style.
 		SpeechDiv.style.left = "";
