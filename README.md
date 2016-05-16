@@ -3,9 +3,17 @@
 This library makes it easy to display a Speech Bubble above an element!
 
 You may use this in your HTML using GitHub Pages Hosting.
+
+The following will always load the latest version available:
 ```html
 <script type="text/javascript" src="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.js"></script>
 <link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.css" />
+```
+
+This code will load specifically version 1.0:
+```html
+<script type="text/javascript" src="//mdtech-us-man.github.io/SpeechBubble.js/1.0/SpeechBubble.js"></script>
+<link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/1.0/SpeechBubble.css" />
 ```
 
 There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.net/t6Lqwxq2/
@@ -44,6 +52,7 @@ OpenSpeechBubbles.forEach(function(bubble) { bubble.removeBubble(); });
 
 * **For IE 8 support, please include the `addEventListener` polyfill.**  
    https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Compatibility
+   http://caniuse.com/#feat=addeventlistener
 
 ## Tested on
 * **Chrome 49+**
