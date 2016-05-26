@@ -10,10 +10,10 @@ The following will always load the latest version available:
 <link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/SpeechBubble.css" />
 ```
 
-This code will load specifically version 1.0:
+This code will load specifically version 1.1:
 ```html
-<script type="text/javascript" src="//mdtech-us-man.github.io/SpeechBubble.js/1.0/SpeechBubble.js"></script>
-<link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/1.0/SpeechBubble.css" />
+<script type="text/javascript" src="//mdtech-us-man.github.io/SpeechBubble.js/1.1/SpeechBubble.js"></script>
+<link rel="stylesheet" href="//mdtech-us-man.github.io/SpeechBubble.js/1.1/SpeechBubble.css" />
 ```
 
 There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.net/t6Lqwxq2/
