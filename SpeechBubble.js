@@ -1,6 +1,4 @@
 /*
- * SpeechBubble.js
- * 
  * Copyright (c) 2016 Maxwell Dreytser
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -154,13 +152,26 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 
 	DoAutoPosition();
 
-	window.addEventListener('resize', function(){
-		DoAutoPosition();
-	}, true);
+	window.addEventListener('resize', DoAutoPosition, true);
+
+	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+	var observer;
 
 	SpeechDiv.removeBubble = function() {
-		SpeechStyle.parentNode.removeChild(SpeechStyle);
-		SpeechDiv.parentNode.removeChild(SpeechDiv);
+		// Remove all the listeners.
+		window.removeEventListener('resize', DoAutoPosition, true);
+
+		if (MutationObserver) {
+			observer.disconnect();
+		}
+
+		try {
+			SpeechStyle.parentNode.removeChild(SpeechStyle);
+		} catch (e) {}
+		try {
+			SpeechDiv.parentNode.removeChild(SpeechDiv);
+		} catch (e) {}
 
 		for ( var i = 0; i < OpenSpeechBubbles.length; i++ ) {
 			if (OpenSpeechBubbles[i] == SpeechDiv) {
@@ -168,6 +179,55 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 			}
 		}
 	};
+
+	// Check if MutationObserver is available.
+	if (MutationObserver) {
+		observer = new MutationObserver(function (mutations, observer) {
+
+			var DontPosition = false;
+
+			var applicableMutations = mutations.length;
+			mutations.forEach(function(mutation) {
+				if (mutation.target.tagName && mutation.target.tagName.toLowerCase() == "script") {
+					DontPosition = true;
+				} else if (mutation.target == SpeechDiv && mutation.type == "attributes"){
+					DontPosition = true;
+				} else {
+					if (mutation.removedNodes && Array.prototype.slice.call(mutation.removedNodes).length > 0) {
+						Array.prototype.slice.call(mutation.removedNodes).forEach(function(node) {
+							if (node == SpeechDiv) {
+								SpeechDiv.removeBubble();
+								DontPosition = true;
+							} else if (node == SpeechStyle) {
+								DontPosition = true;
+							}
+						});
+					}
+					if (mutation.addedNodes && Array.prototype.slice.call(mutation.addedNodes).length > 0) {
+						Array.prototype.slice.call(mutation.addedNodes).forEach(function(node) {
+							if (node.tagName && node.tagName.toLowerCase() == "script") {
+								DontPosition = true;
+							}
+						});
+					}
+				}
+			});
+
+			if (applicableMutations > 0 && !DontPosition) {
+				DoAutoPosition();
+			}
+		});
+
+		// define what element should be observed by the observer
+		// and what types of mutations trigger the callback
+		observer.observe(document, {
+			childList: true,
+			subtree: true,
+			attributes: true,
+			characterData: true
+		});
+	}
+	SpeechDiv.DoAutoPosition = DoAutoPosition;
 
 	OpenSpeechBubbles.push(SpeechDiv);
 
