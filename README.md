@@ -52,6 +52,7 @@ OpenSpeechBubbles.forEach(function(bubble) { bubble.removeBubble(); });
 
 * **For IE 8 support, please include the `addEventListener` polyfill.**  
    https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Compatibility
+   http://caniuse.com/#feat=addeventlistener
 
 ## Tested on
 * **Chrome 49+**
