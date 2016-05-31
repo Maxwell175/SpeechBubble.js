@@ -44,6 +44,13 @@
 <div id="AddToDiv"></div>
 <script type="text/javascript">
 	SpeechBubble(
+			null,
+			'<b>This is a dialog box, not a speech bubble. It is used to communicate a general idea without attaching it to any particular element.</b>',
+			'bigfont yellowbackground greenborder',
+			document.getElementById('AddToDiv')
+	);
+	
+	SpeechBubble(
 			document.getElementById('BubbleFrom1'),
 			'<b>This is some bubble text</b>',
 			'bigfont yellowbackground greenborder',

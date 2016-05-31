@@ -19,7 +19,8 @@
 // If you would like IE 8 support, include the polyfill here: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Compatibility
 /**
  * Adds a speech bubble above or below the specified element.
- * @param {HTMLElement} targetElement - Element that the
+ * @param {HTMLElement} targetElement - Element that the speech bubble points to
+ *	 if targetElement is null then a dialog bubble is used which doesn't point anywhere
  * @param {string} content - What the bubble will contain (html is ok).
  * @param {string} [additionalCSSClasses] The CSS class to add to the element.
  * @param {HTMLElement} [appendToElement=body] The element to which the SpeechBubble will actually be appended to. By default this is the `body` element.
@@ -54,11 +55,16 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 	}
 
 	var SpeechDiv = document.createElement('div');
-	if (additionalCSSClasses) {
-		SpeechDiv.className = 'speech-bubble-main speech-bubble-top ' + additionalCSSClasses;
+	 
+	if ( element === null){
+		SpeechDiv.className = 'dialog-bubble-main';
 	} else {
 		SpeechDiv.className = 'speech-bubble-main speech-bubble-top';
+	} 
+	if (additionalCSSClasses) {
+		SpeechDiv.className += ' '+ additionalCSSClasses;
 	}
+	
 	SpeechDiv.innerHTML = content;
 	var SpeechID;
 	do {
@@ -72,9 +78,26 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 	document.getElementsByTagName('body')[0].appendChild(SpeechStyle);
 
 
+	function doDialogPosition(){
+		// Unset inline style.
+		SpeechDiv.style.left = "";
+		SpeechStyle.innerHTML =
+				'#' + SpeechDiv.id + ' {' +
+				'  position: fixed;' +
+				'  top: 20px; left: 50%; ' +
+				'  transform: translate(-50%, 0); transform: -webkit-translate(-50%, 0); transform: -ms-translate(-50%, 0)' +
+				'}';
+		
+	}
 	function DoAutoPosition() {
-		var elmXY = getOffset(element);
-
+		
+		var elmXY;
+		if ( element !== null)
+			elmXY = getOffset(element);
+		else{
+			doDialogPosition();
+			return;
+		}
 		var speechX;
 		var speechY;
 
@@ -121,7 +144,7 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top + elmHeight + 2;
+			speechY = elmXY.top + elmHeight + 20;
 		}
 		if (speechY < 0) speechY = 0;
 
