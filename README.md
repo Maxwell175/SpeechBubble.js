@@ -22,7 +22,7 @@ There is a demo in the demo folder as well as a jsfiddle here: https://jsfiddle.
 
 #### Create a Speech Bubble
 ```javascript
-var SpeechBubbleDiv = SpeechBubble(document.getElementById('MyElement'), 'This is my bubble's content.', 'MyBubbleClass');
+var SpeechBubbleDiv = SpeechBubble(document.getElementById('MyElement'), "This is my bubble's content.", 'MyBubbleClass');
 ```
 The `SpeechBubble` function returns the `<div>` that it created and adds it to the `window.OpenSpeechBubbles` array.
 
