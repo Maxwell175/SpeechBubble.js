@@ -36,6 +36,10 @@ SpeechBubbleDiv.removeBubble();
 ```javascript
 OpenSpeechBubbles.forEach(function(bubble) { bubble.removeBubble(); });
 ```
+#### Create a Dialog Box
+```javascript
+var SpeechBubbleDiv = SpeechBubble(null, 'This is the content of my dialog box. It is like a speech bubble, except it does not point anywhere.', 'MyBubbleClass');
+```
 
 ## Dependencies
 ##### None. There are no dependencies.
