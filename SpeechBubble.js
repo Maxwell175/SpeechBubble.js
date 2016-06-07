@@ -85,7 +85,7 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 				'#' + SpeechDiv.id + ' {' +
 				'  position: fixed;' +
 				'  top: 20px; left: 50%; ' +
-				'  transform: translate(-50%, 0); transform: -webkit-translate(-50%, 0); transform: -ms-translate(-50%, 0)' +
+				'  transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0); -ms-transform: translate(-50%, 0)' +
 				'}';
 		
 	}
