@@ -51,7 +51,7 @@ var SpeechBubbleDiv = SpeechBubble(null, 'This is the content of my dialog box. 
 * **The element you specify should have a fixed width.**  
    Otherwise, the bubble will end up pointing at the middle of the page.
 
-* **If the specified element is a `<span>` that contains a phrase in a paragraph and the phrase wraps it appears that the bubble points somewhere to the side of the text. (Resize the jsfiddle)**   
+* **If the specified element is a `<span>` that contains a phrase that wraps to the next line, it appears that the bubble points somewhere to the side of the text. (Resize the jsfiddle to see this)**   
    Solutions are welcome! See Contributions section.
 
 * **For IE 8 support, please include the `addEventListener` polyfill.**  
