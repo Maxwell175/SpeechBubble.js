@@ -54,8 +54,8 @@
 .speech-bubble-main:after {
 	content: "";
 	position: absolute;
-	bottom: -13px;
-	border-width: 13px 13px 0;
+	bottom: -14px;
+	border-width: 14px 14px 0;
 	border-style: solid;
 	border-color: #fff transparent;
 	display: block;
@@ -69,15 +69,15 @@
 .speech-bubble-top:after {
 	top: -12.8px;
 	bottom: auto;
-	border-width: 0 13px 13px;
+	border-width: 0 14px 14px;
 }
 .speech-bubble-bottom:before {
 	top: auto;
-	bottom: -20px;
+	bottom: -21px;
 	border-width: 20px 20px 0;
 }
 .speech-bubble-bottom:after {
 	top: auto;
-	bottom: -13px;
-	border-width: 13px 13px 0;
+	bottom: -14px;
+	border-width: 15px 14px 0;
 }

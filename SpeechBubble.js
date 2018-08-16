@@ -21,7 +21,7 @@
  * Adds a speech bubble above or below the specified element.
  * @param {HTMLElement} targetElement - Element that the speech bubble points to
  *	 if targetElement is null then a dialog bubble is used which doesn't point anywhere
- * @param {string} content - What the bubble will contain (html is ok).
+ * @param {string|HTMLElement} content - What the bubble will contain (html is ok).
  * @param {string} [additionalCSSClasses] The CSS class to add to the element.
  * @param {HTMLElement} [appendToElement=body] The element to which the SpeechBubble will actually be appended to. By default this is the `body` element.
  * @returns {HTMLElement} The Speech Bubble element.
@@ -64,8 +64,12 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 	if (additionalCSSClasses) {
 		SpeechDiv.className += ' '+ additionalCSSClasses;
 	}
-	
-	SpeechDiv.innerHTML = content;
+
+	if (content instanceof HTMLElement)
+		SpeechDiv.appendChild(content);
+	else
+		SpeechDiv.innerHTML = content;
+
 	var SpeechID;
 	do {
 		SpeechID='bubble-' + new Date().getTime();
@@ -104,26 +108,25 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 		var elmWidth = (element.offsetWidth && element.offsetWidth > element.clientWidth) ? element.offsetWidth : element.clientWidth;
 		var elmHeight = (element.offsetHeight && element.offsetHeight > element.clientHeight) ? element.offsetHeight : element.clientHeight;
 
-
+		var fromRight = false;
 		var targetPointerCoefficient = 0;
-		if (SpeechDiv.clientWidth < element.clientWidth)
-			speechX = elmXY.left + (element.clientWidth - SpeechDiv.clientWidth) / 2;
+		if (SpeechDiv.clientWidth < elmWidth)
+			speechX = elmXY.left + (elmWidth - SpeechDiv.clientWidth) / 2;
 		else if (elmXY.left + SpeechDiv.clientWidth >= document.documentElement.clientWidth) {
 			// If the size of the SpeechDiv is greater than the amount of space there is from
-			// the beginning of the element to the edge of the page, the SpeechDiv must be moved closer to the left.
-			speechX = document.documentElement.clientWidth - SpeechDiv.clientWidth;
+			// the beginning of the element to the edge of the page, the SpeechDiv must from the right edge.
+            speechX = elmXY.left - SpeechDiv.clientWidth + 35;
+			fromRight = true;
 			// If the SpeechDiv is larger that the viewport, let the SpeechBubble become taller.
 			if (speechX < 0) {
+                targetPointerCoefficient = speechX;
 				speechX = 0;
 			}
-
-			// Now, calculate how much the pointer should be moved to compensate for the new position of the SpeechDiv.
-			targetPointerCoefficient = elmXY.left - speechX;
 		} else
-			speechX = elmXY.left;
+			speechX = elmXY.left - 35;
 
 		// Temporarily set the X coordinate of the SpeechDiv manually to correctly calculate the Y coordinate.
-		SpeechDiv.style.left = speechX;
+		SpeechDiv.style.left = speechX + 'px';
 
 		if (elmXY.top + elmHeight + SpeechDiv.clientHeight + 23 > (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)) {
 			var appliedClasses = SpeechDiv.className.split(' ');
@@ -134,7 +137,9 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top - SpeechDiv.clientHeight - 23;
+			var speechHeight = SpeechDiv.getBoundingClientRect ? SpeechDiv.getBoundingClientRect().height : SpeechDiv.clientHeight;
+
+			speechY = elmXY.top - speechHeight - 15;
 		} else {
 			var appliedClasses = SpeechDiv.className.split(' ');
 			for ( var i = 0; i < appliedClasses.length; i++ ) {
@@ -144,32 +149,57 @@ window.SpeechBubble = function(targetElement, content, additionalCSSClasses, app
 			}
 			SpeechDiv.className = appliedClasses.join(' ');
 
-			speechY = elmXY.top + elmHeight + 20;
+			speechY = elmXY.top + elmHeight + 15;
 		}
 		if (speechY < 0) speechY = 0;
+        SpeechDiv.style.top = speechY + 'px';
+
+        elmXY = getOffset(element);
+        if (SpeechDiv.clientWidth < elmWidth)
+            speechX = elmXY.left + (elmWidth - SpeechDiv.clientWidth) / 2;
+        else if (elmXY.left + SpeechDiv.clientWidth >= document.documentElement.clientWidth) {
+            // If the size of the SpeechDiv is greater than the amount of space there is from
+            // the beginning of the element to the edge of the page, the SpeechDiv must from the right edge.
+            speechX = elmXY.left - SpeechDiv.clientWidth + 35;
+            fromRight = true;
+            // If the SpeechDiv is larger that the viewport, let the SpeechBubble become taller.
+            if (speechX < 0) {
+                targetPointerCoefficient = speechX;
+                speechX = 0;
+            }
+        } else
+            speechX = elmXY.left - 35;
 
 		// Unset inline style.
 		SpeechDiv.style.left = "";
+        SpeechDiv.style.top = "";
 
 
-		SpeechStyle.innerHTML =
+		var newStyle;
+        newStyle =
 				'#' + SpeechDiv.id + ' {' +
 				'  left: ' + speechX + 'px;' +
 				'  top: ' + speechY + 'px;' +
 				'}' +
 				'#' + SpeechDiv.id + ':before {';
-		if (SpeechDiv.clientWidth < elmWidth)
-			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + (SpeechDiv.clientWidth - 20) / 2 - 7) + 'px';
-		else
-			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + elmWidth / 2 - 27) + 'px;';
-		SpeechStyle.innerHTML +=
+		if (SpeechDiv.clientWidth > elmWidth)
+			if (fromRight)
+                newStyle += '  left: ' + (SpeechDiv.clientWidth - 55 + targetPointerCoefficient) + 'px';
+			else
+                newStyle += '  left: ' + (15) + 'px';
+        newStyle +=
 				'}' +
 				'#' + SpeechDiv.id + ':after {';
-		if (SpeechDiv.clientWidth < elmWidth)
-			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + (SpeechDiv.clientWidth - 20) / 2) + 'px';
-		else
-			SpeechStyle.innerHTML += '  left: ' + (targetPointerCoefficient + elmWidth / 2 - 20) + 'px;';
-		SpeechStyle.innerHTML += '}';
+		if (SpeechDiv.clientWidth > elmWidth)
+            if (fromRight)
+                newStyle += '  left: ' + (SpeechDiv.clientWidth - 49 + targetPointerCoefficient) + 'px';
+            else
+                newStyle += '  left: ' + (21) + 'px';
+        newStyle += '}';
+
+        if (newStyle != SpeechStyle.innerHTML) {
+            SpeechStyle.innerHTML = newStyle;
+		}
 	}
 
 
